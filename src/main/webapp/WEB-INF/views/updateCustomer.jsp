@@ -17,7 +17,7 @@
 	   
 	     
 		<div class="form-layout">
-	       <form:form   action="${pageContext.request.contextPath}/customer/update"   method="post" commandName="customer"     class="form-horizontal"  >
+	       <form:form   action="${pageContext.request.contextPath}/customer/update"   method="post" modelAttributes="customer"     class="form-horizontal"  >
 				
 				
 				
