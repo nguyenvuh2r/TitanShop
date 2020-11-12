@@ -1,6 +1,7 @@
 package titan.shop.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,17 +17,21 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import titan.shop.exception.CustomError;
 import titan.shop.model.Customer;
 import titan.shop.model.CustomerContact;
+import titan.shop.model.ProductBrand;
 import titan.shop.service.CustomerContactService;
 import titan.shop.service.CustomerService;
+import titan.shop.service.ProductBrandService;
 
 @Controller
 public class HomeController implements HandlerExceptionResolver{
@@ -48,6 +53,15 @@ public class HomeController implements HandlerExceptionResolver{
 	   
 		return "home";
 	}
+   @Autowired
+   private ProductBrandService pbd;
+   
+   @GetMapping("/test")
+   @ResponseBody
+   public List<ProductBrand> getTest()
+   {
+	   return pbd.getAll();
+   }
 	
    
    @RequestMapping("/login")
