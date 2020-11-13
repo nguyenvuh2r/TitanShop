@@ -51,8 +51,14 @@ public class HomeController implements HandlerExceptionResolver{
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	ProductCategoriesService productCategoriesService;
+	
+   @Autowired
+   private ProductBrandService productBrandService;
+	
 	@RequestMapping("/")
-	public String homePage(Model model,HttpSession ss){
+	public String homePage(Model model){
 		Page<Product> page = productService.getAllProduct(1);
 	  
 		List<Product> products=new ArrayList<>();
@@ -62,25 +68,22 @@ public class HomeController implements HandlerExceptionResolver{
 		}
 		
 		model.addAttribute("products", products);
-		ss.setAttribute("cats", pd.getAll());
+		
 		return "home";
 	}
-	@Autowired
-	ProductCategoriesService pd;
+	
 	@GetMapping("/getca")
 	@ResponseBody
 	public List<ProductCategories> list()
 	{
-		return pd.getAll();
+		return productCategoriesService.getAll();
 	}
-   @Autowired
-   private ProductBrandService pbd;
    
    @GetMapping("/test")
    @ResponseBody
    public List<ProductBrand> getTest()
    {
-	   return pbd.getAll();
+	   return productBrandService.getAll();
    }
 	
    

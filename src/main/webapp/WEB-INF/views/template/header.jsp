@@ -1,7 +1,31 @@
-<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@ page import="org.springframework.beans.factory.annotation.Value"%>
+<%@ page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@ page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
+<%@ page import="titan.shop.service.ProductCategoriesService" %>
+<%@ page import="titan.shop.model.ProductCategories" %>
+<%@ page import="titan.shop.model.ProductBrand" %>
+<%@ page import="java.util.List" %>
+
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%@ page pageEncoding="UTF-8" %>
+
+<%!
+    public void jspInit() 
+    {
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+        getServletContext());
+    }
+
+    @Autowired
+    private ProductCategoriesService productCategoriesService;
+%>
+
+<%
+	List<ProductCategories> cats = productCategoriesService.getAll();
+%>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
@@ -71,17 +95,17 @@
               <li class="dropdown"><a href="#">Trang chủ</a></li>
               <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Shop</a>
               	<ul class="dropdown-menu">
-              	  <c:forEach var="category" items="${cats}">
-              		<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">${category.name} }</a>
-	              		<c:if test="${not empty cats }">
+              	  <% for (ProductCategories category : cats) { %>
+              		<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown"><%=category.getName()%></a>
+	              		<% if(category.getProductBrand() != null) { %>
 	              			<ul class="dropdown-menu">
-		              			<c:forEach var="brand" items="${category.productBrand}">
-			                      <li><a href="index_mp_fullscreen_static.html">${brand.name}</a></li>
-		              			</c:forEach>
+		              			<% for(ProductBrand brand : category.getProductBrand()) { %>
+			                      <li><a href=""><%=brand.getName()%></a></li>
+		              			<% } %>
 	              			</ul>
-	              		</c:if>
+	              		<% } %>
 	              	</li>
-              	  </c:forEach>
+              	  <% } %>
               	 </ul>
               </li>
               <li class="dropdown"><a href="#">Tin tức</a></li>

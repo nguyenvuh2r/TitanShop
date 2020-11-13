@@ -27,7 +27,7 @@
       </div>
     </div>
   </section>
-  <section class="module bg-dark-30" style="background-image:url(&quot;assets/images/shop/technology.jpg&quot;);">
+  <section class="module bg-dark-30" style='background-image:url(&quot;<c:url value="resources/images/shop/technology.jpg"/>&quot;);'>
   <div class="container">
     <div class="row">
       <div class="col-sm-6 col-sm-offset-3">
