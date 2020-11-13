@@ -1,19 +1,7 @@
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@ page import="java.util.List"%>
-<%@ page import="titan.shop.model.ProductCategories"%>
-<%@ page import="titan.shop.model.ProductBrand"%>
-<%@ page import="titan.shop.serviceimpl.ProductCategoriesServiceImpl"%>
-<%@ page import="titan.shop.service.ProductCategoriesService"%>
-
 <%@ page pageEncoding="UTF-8" %>
-
-<%
-	ProductCategoriesService productCategoriesService = new ProductCategoriesServiceImpl();
-	List<ProductCategories> cats = productCategoriesService.getAll();
-%>
-
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
@@ -85,7 +73,7 @@
               	<ul class="dropdown-menu">
               	  <c:forEach var="category" items="${cats}">
               		<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">${category.name} }</a>
-	              		<c:if test="${category.productBrand.length>0}">
+	              		<c:if test="${not empty cats }">
 	              			<ul class="dropdown-menu">
 		              			<c:forEach var="brand" items="${category.productBrand}">
 			                      <li><a href="index_mp_fullscreen_static.html">${brand.name}</a></li>

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,9 +33,11 @@ import titan.shop.model.Customer;
 import titan.shop.model.CustomerContact;
 import titan.shop.model.Product;
 import titan.shop.model.ProductBrand;
+import titan.shop.model.ProductCategories;
 import titan.shop.service.CustomerContactService;
 import titan.shop.service.CustomerService;
 import titan.shop.service.ProductBrandService;
+import titan.shop.service.ProductCategoriesService;
 import titan.shop.service.ProductService;
 
 @Controller
@@ -49,7 +52,7 @@ public class HomeController implements HandlerExceptionResolver{
 	private ProductService productService;
 	
 	@RequestMapping("/")
-	public String homePage(Model model){
+	public String homePage(Model model,HttpSession ss){
 		Page<Product> page = productService.getAllProduct(1);
 	  
 		List<Product> products=new ArrayList<>();
@@ -59,8 +62,16 @@ public class HomeController implements HandlerExceptionResolver{
 		}
 		
 		model.addAttribute("products", products);
-	   
+		ss.setAttribute("cats", pd.getAll());
 		return "home";
+	}
+	@Autowired
+	ProductCategoriesService pd;
+	@GetMapping("/getca")
+	@ResponseBody
+	public List<ProductCategories> list()
+	{
+		return pd.getAll();
 	}
    @Autowired
    private ProductBrandService pbd;
