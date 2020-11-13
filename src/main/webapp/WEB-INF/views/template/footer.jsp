@@ -1,83 +1,37 @@
-<div class="container">
-       
-        
-        
-        <section class="address">
-           
-             <diV class="container">
-                
-                <div class="row">
-                  
-                  <div class="addresstitle">
-                     <h2>Contact With Us</h2>
-                  </div>
-                   
-                   <div class="col-md-8">
-                       <div class="showroom">
-                             <div class="row">
-                                    <div class="col-md-4 contact1">
-                                      <p class="contactNum"><i class="fa fa-phone "></i><span>555-9999-7777</span></p>
-                                       <p class="contactNum2"><i class="fa fa-envelope-o "></i>
-                                       <span>shop@gmail.com</span></p>
-                                       
-                                    </div>
+<%@ page pageEncoding="UTF-8" %>
 
-                                     <div class="col-md-4 contact2">
-                                        <i class="fa fa-map-marker "></i>
-                                       <p class="roadno">
-                                           <span>
-                                           Dhaka<br>
-                                        Chittagong<br>
-                                        Khulna<br>
-                                        Times Square<br>
-                                        NY<br>
-                                        </span>
-                                       </p>
-
-                                       </div>
-                              </div>
-                       </div>
-                      <div class="social">
-                         <i class="fa fa-facebook-official" aria-hidden="true"></i>
-                         <i class="fa fa-twitter" aria-hidden="true"></i>
-                         <i class="fa fa-google-plus" aria-hidden="true"></i>
-                         <i class="fa fa-linkedin" aria-hidden="true"></i>
-                   </div>
-                   </div>
-                   
-                   
-                   
-                   <div class="col-md-4">
-                      <div class="mymap">
-                         
-                         <div id="map"></div>
-                      </div>
-                   </div>
+<hr class="divider-d">
+        <footer class="footer bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="copyright font-alt">&copy; 2020&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+              </div>
+              <div class="col-sm-6">
+                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
                 </div>
-                
-             </diV>
-           
-        </section>
-        
-        
-        <footer class="foootersection text-center">
-           
-           <p>&copy; Copyright Grren Online Shop 2016</p>
+              </div>
+            </div>
+          </div>
         </footer>
-
-    </div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-   
-	<script>
-		window.jQuery
-				|| document
-						.write('<script src="<c:url value="/resources/js/jquery-1.12.4.min.js"/>"><\/script>')
-	</script>
-	<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-    
+      </div>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <script src="<c:url value="/resources/lib/jquery/dist/jquery.js"/>"></script>
+    <script src="<c:url value="/resources/lib/bootstrap/dist/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/resources/lib/wow/dist/wow.js"/>"></script>
+    <script src="<c:url value="/resources/lib/isotope/dist/isotope.pkgd.js"/>"></script>
+    <script src="<c:url value="/resources/lib/imagesloaded/imagesloaded.pkgd.js"/>"></script>
+    <script src="<c:url value="/resources/lib/flexslider/jquery.flexslider.js"/>"></script>
+    <script src="<c:url value="/resources/lib/owl.carousel/dist/owl.carousel.min.js"/>"></script>
+    <script src="<c:url value="/resources/lib/smoothscroll.js"/>"></script>
+    <script src="<c:url value="/resources/lib/magnific-popup/dist/jquery.magnific-popup.js"/>"></script>
+    <script src="<c:url value="/resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/plugins.js"/>"></script>
+    <script src="<c:url value="/resources/js/main.js"/>"></script>
   </body>
 </html>

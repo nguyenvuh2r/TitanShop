@@ -1,5 +1,6 @@
 package titan.shop.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,28 +30,35 @@ import org.springframework.web.servlet.ModelAndView;
 import titan.shop.exception.CustomError;
 import titan.shop.model.Customer;
 import titan.shop.model.CustomerContact;
+import titan.shop.model.Product;
 import titan.shop.model.ProductBrand;
 import titan.shop.service.CustomerContactService;
 import titan.shop.service.CustomerService;
 import titan.shop.service.ProductBrandService;
+import titan.shop.service.ProductService;
 
 @Controller
 public class HomeController implements HandlerExceptionResolver{
-
-	
-	
-	
 	@Autowired
 	private CustomerService customerService;
 	
 	@Autowired
 	private CustomerContactService customerContactService;
 	
-   @RequestMapping("/")
-	public String homePage(){
-		
+	@Autowired
+	private ProductService productService;
+	
+	@RequestMapping("/")
+	public String homePage(Model model){
+		Page<Product> page = productService.getAllProduct(1);
 	  
-	    
+		List<Product> products=new ArrayList<>();
+		
+		for (Product product : page) {
+			products.add(product);
+		}
+		
+		model.addAttribute("products", products);
 	   
 		return "home";
 	}
