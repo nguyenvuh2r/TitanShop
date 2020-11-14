@@ -23,6 +23,7 @@ public class ProductBrand {
 	@ManyToOne
 	@JoinColumn(name = "productCategoriesId")
 	private ProductCategories productCategories;
+	
 	public int getProductBrandId() {
 		return productBrandId;
 	}

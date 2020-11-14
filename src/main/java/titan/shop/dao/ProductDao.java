@@ -18,14 +18,5 @@ import titan.shop.model.Product;
 
 public interface ProductDao extends JpaRepository<Product, Long>,PagingAndSortingRepository<Product, Long>{
 	
-	List<Product> findAllProductsByproductCategory(String productCategory);
 	
-	Page<Product> findAllProductByproductCategory(String productCategory, Pageable pageable);
-	
-	@Query("SELECT t FROM Product t WHERE t.productCategory = :category AND t.productModel LIKE %:searchTerm%  OR  t.productCategory = :category AND t.productBrand LIKE %:searchTerm%")
-	Page<Product> findAllProductByBrandOrModel(@Param("searchTerm")String searchTerm,@Param("category")String category,Pageable pageable);
-	
-	
-	@Query("SELECT t FROM Product t WHERE t.productCategory = :searchTerm OR t.productModel LIKE %:searchTerm%  OR   t.productBrand LIKE %:searchTerm%")
-	Page<Product> findAllProductByBrandOrModelorCategory(@Param("searchTerm")String searchTerm,Pageable pageable);
 }

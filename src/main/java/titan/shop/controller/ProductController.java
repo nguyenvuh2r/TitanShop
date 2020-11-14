@@ -34,7 +34,7 @@ public class ProductController  implements HandlerExceptionResolver{
 		
 		
 		
-		Page<Product> page=productService.getAllProductByCategory(pageNumber, productCategory);
+		Page<Product> page=productService.getAllProduct(pageNumber);
 		
 		
 		List<Product> products=new ArrayList<>();
@@ -66,7 +66,7 @@ public class ProductController  implements HandlerExceptionResolver{
 		
 		
 		
-		Page<Product> page=productService.getAllProductByBrandOrModel(pageNumber, searchTerm, productCategory);
+		Page<Product> page=productService.getAllProduct(1);
 		
 		List<Product> products=new ArrayList<>();
 		
@@ -128,11 +128,12 @@ public class ProductController  implements HandlerExceptionResolver{
 			Exception ex) {
 		ModelAndView modelAndView=new ModelAndView();
 		CustomError error=new CustomError();
-	
 		
 		error.setMessage("Your request is not valid.Please Enter a valid request.");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
+		
+		System.out.println(ex);
 		
 		return modelAndView;
 	}

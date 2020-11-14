@@ -94,7 +94,7 @@ public class AdminHome implements HandlerExceptionResolver{
 	public String productSearch(@RequestParam("searchTerm")String searchTerm,@PathVariable Integer pageNumber,Model model){
 		
 		
-		Page<Product> page=productService.getAllProductByBrandOrModelOrCategory(pageNumber, searchTerm);
+		Page<Product> page=productService.getAllProduct(pageNumber);
 		
 		int currentPageNumber=page.getNumber()+1;
 		int beginIndex=Math.max(1, currentPageNumber-6);
@@ -255,6 +255,8 @@ public class AdminHome implements HandlerExceptionResolver{
 		error.setMessage("Your request is not valid.Please Enter a valid request.");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
+		
+		System.out.println(ex);
 		
 		return modelAndView;
 	}

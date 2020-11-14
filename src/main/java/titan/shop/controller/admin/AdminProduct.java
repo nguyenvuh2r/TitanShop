@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
 import titan.shop.exception.CustomError;
 import titan.shop.exception.DatabaseForeignKeyException;
 import titan.shop.model.Product;
+import titan.shop.model.ProductBrand;
+import titan.shop.model.ProductCategories;
+import titan.shop.service.ProductBrandService;
+import titan.shop.service.ProductCategoriesService;
 import titan.shop.service.ProductService;
 import titan.shop.validator.ProductFormValidator;
 
@@ -37,8 +42,15 @@ import titan.shop.validator.ProductFormValidator;
 public class AdminProduct implements HandlerExceptionResolver{
 
 	private Path path;
+	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductBrandService productBrandService;
+	
+	@Autowired
+	private ProductCategoriesService productCategoriesService;
 	
 	@Autowired
 	private ProductFormValidator productFormValidator;
@@ -51,7 +63,6 @@ public class AdminProduct implements HandlerExceptionResolver{
 		Product product=new Product();
 		product.setProductStatus("Brand New");
 		model.addAttribute("product",product);
-		model.addAttribute("categoryList",product.getCategoryList());
 		return "addProduct";
 	}
 	
@@ -61,7 +72,6 @@ public class AdminProduct implements HandlerExceptionResolver{
 		
 		try {
 			if (result.hasErrors()) {
-				model.addAttribute("categoryList",product.getCategoryList());
 				return "addProduct";
 			}
 			
@@ -76,7 +86,7 @@ public class AdminProduct implements HandlerExceptionResolver{
 			
 			MultipartFile productImage=product.getProductImage();
 			String rootDir=request.getSession().getServletContext().getRealPath("/");
-			path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\"+product.getProductId()+".png");
+			path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\products\\" +product.getProductId()+ ".png");
 			
 			if (productImage!=null && !productImage.isEmpty()) {
 				try {
@@ -105,21 +115,23 @@ public class AdminProduct implements HandlerExceptionResolver{
 	
 	
 	@RequestMapping("/product/updateProduct/{productId}")
-	public String updateProduct(@PathVariable("productId")long productId,Model model){
+	public String updateProduct(@PathVariable("productId")long productId, Model model){
+		Product product = productService.getProductById(productId);
 		
-		Product product=productService.getProductById(productId);
+		List<ProductCategories> categoriesList = productCategoriesService.getAll();
 		
-		model.addAttribute("product",product);
-		model.addAttribute("categoryList",product.getCategoryList());
+		List<ProductBrand> brandsList = productBrandService.getAll();
+		
+		model.addAttribute("categoriesList", categoriesList);
+		model.addAttribute("brandsList", brandsList);
+		model.addAttribute("product", product);
 		return "updateProduct";
-		
-		
 	}
 	
 	
 	
 	
-	@RequestMapping(value="/product/updateProduct",method=RequestMethod.POST)
+	@RequestMapping(value="/product/updateProduct", method=RequestMethod.POST)
 	public String updateProductPost(@ModelAttribute("product")Product product,BindingResult result,HttpServletRequest request){
 		
 		if (result.hasErrors()) {
@@ -224,13 +236,15 @@ public class AdminProduct implements HandlerExceptionResolver{
 		error.setMessage("Your request is not valid.Please Enter a valid request.");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
+		System.out.println(ex);
 		
 		return modelAndView;
 	}
 	
-	
+	/*
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(productFormValidator);
 	}
+	*/
 }

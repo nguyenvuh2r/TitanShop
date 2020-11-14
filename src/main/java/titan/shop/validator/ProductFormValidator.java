@@ -21,9 +21,11 @@ public class ProductFormValidator implements Validator {
 		
 		Product product=(Product) target;
 		
+		/*
 		if (product.getProductCategory().equalsIgnoreCase("NONE")) {
 			errors.rejectValue("productCategory", "empty", "Please select  a product category");
 		}
+		*/
 		/*
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors,"productPrice","empty","ProductPrice can not be empty");
 		

@@ -271,6 +271,8 @@ public class RegisterController implements HandlerExceptionResolver{
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
 		
+		System.out.println(ex);
+		
 		return modelAndView;
 	}
 	

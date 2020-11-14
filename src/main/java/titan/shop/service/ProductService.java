@@ -20,13 +20,4 @@ public interface ProductService {
 	
 	void deleteProduct(long productId);
 	
-	List<Product> getAllProductByCategory(String category);
-	
-	Page<Product> getAllProductByCategory(Integer pageNumber,String category);
-	
-	Page<Product> getAllProductByBrandOrModel(Integer pageNumber,String searchTerm,String category);
-	
-	Page<Product> getAllProductByBrandOrModelOrCategory(Integer pageNumber,String searchTerm);
-	
-	
 }

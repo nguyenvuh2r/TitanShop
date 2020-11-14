@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class ProductCategories {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int productCategoriesId ;
+	private int productCategoriesId;
 	@Column(name = "name")
 	private String name;
 	@OneToMany(mappedBy = "productCategories",cascade =CascadeType.ALL )
