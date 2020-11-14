@@ -126,13 +126,13 @@
 	                  <div class="form-group">
 	                  	<div class="icheck-primary">
 	                  	<label>
-	                        <form:radiobutton path="productStatus" id="productStatus" value="Brand New"/>
+	                        <form:radiobutton path="productStatus" id="productStatus1" value="Brand New"/>
 	                        Brand New
                         </label>
                       </div>
                       <div class="icheck-primary">
                       	<label>
-	                        <form:radiobutton path="productStatus" id="productStatus" value="Old"/>
+	                        <form:radiobutton path="productStatus" id="productStatus2" value="Old"/>
 	                        Old
                         </label>
                       </div>
@@ -157,13 +157,27 @@
 	            <!-- /.form-group -->
             </div>
             <!-- /.row -->
-            </form:form>
+            <div class="row">
+	            <div class="col-12 col-sm-6">
+	              	 <div class="form-group">
+	              	 	<label>Các biến thể</label>
+	              	 	<form:input path="variants" class="form-control" placeholder="Nhập các biển thể" id="unitInStock" />
+	              	 </div>
+	            </div>
+	            <!-- /.form-group -->
+	            <div class="col-12 col-sm-6">
+	              	 <div class="form-group">
+	              	 </div>
+	            </div>
+	            <!-- /.form-group -->
+            </div>
+            <!-- /.row -->
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
             <div class="row">
               <div class="col-12 col-sm-6">
-                <input type="submit" value="Lưu" class="btn btn-block btn-outline-primary btn-flat">
+                <input type="submit" value="Lưu" class="btn btn-block btn-outline-primary btn-flat"/>
               </div>
               <div class="col-12 col-sm-6">
                 <a href="<c:url value="/admin/productManagement/1"/>" class="btn btn-block btn-outline-primary btn-flat">Hủy</a>
@@ -171,6 +185,7 @@
             </div>
             <!-- /.row -->
           </div>
+          </form:form>
         </div>
         <!-- /.card -->
       </div>
@@ -182,10 +197,16 @@
  <%@include file="/WEB-INF/views/template/adminFooter.jsp" %>
  
  <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2();
-  });
+ $(function () {
+	    //Initialize Select2 Elements
+	    $('.select2').select2();
+	  });
+ </script>
+ 
+ <script>
+ document.onclick = function(e) {
+	    if (e.target instanceof HTMLAnchorElement) e.preventDefault();
+	}
  </script>
  
  </body>
