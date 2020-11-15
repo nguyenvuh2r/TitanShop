@@ -39,8 +39,9 @@
             </div>
           </div>
           <!-- /.card-header -->
+             <form:form action="${pageContext.request.contextPath}/admin/product/updateProduct?${_csrf.parameterName}=${_csrf.token}" method="post" modelAttribute="product" enctype="multipart/form-data" class="form-horizontal">
           <div class="card-body">
-          <form:form action="${pageContext.request.contextPath}/admin/product/updateProduct?${_csrf.parameterName}=${_csrf.token}" method="post" modelAttribute="product" enctype="multipart/form-data" class="form-horizontal">
+       
             <form:hidden path="productId" value="${product.productId}"/>
             <div class="row">
               <div class="col-md-6">

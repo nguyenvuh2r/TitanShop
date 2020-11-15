@@ -1,8 +1,8 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ include file="/WEB-INF/views/template/header.jsp" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="/WEB-INF/views/template/header.jsp" %>
 
-<div class="container-wrapper">
+	<div class="main"> 
+	<div class="container-wrapper">
     <div class="container">
         <div class="page-header">
             <h1>Customer Management Page</h1>
@@ -34,5 +34,7 @@
                 </tr>
             </c:forEach>
         </table>
-
+        </div>
+        </div>
+	</div>
 <%@ include file="/WEB-INF/views/template/footer.jsp" %>

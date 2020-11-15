@@ -1,4 +1,4 @@
-package titan.shop.model;
+	package titan.shop.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -43,6 +43,8 @@ public class Product implements Serializable{
 	
 	private String productDescription;
 	
+	private String productModel;
+	
 	private String productStatus;
 	
 	@ManyToOne
@@ -64,24 +66,41 @@ public class Product implements Serializable{
 	
 	
 	private String variants;
+	
+	
+	
+	
+	public String getProductModel() {
+		return productModel;
+	}
 
-	public Product(String productName, double productPrice, int unitInStock,
-			String productCategory, String productDescription, String productStatus, double discount,
-			MultipartFile productImage, ProductCategories productCategories, ProductBrand productBrand, String variants) {
+
+	public void setProductModel(String productModel) {
+		this.productModel = productModel;
+	}
+
+
+	public Product(long productId, String productName, @Range(min = 0) Double productPrice,
+			@Range(min = 0) Integer unitInStock, String productDescription, String productModel, String productStatus,
+			ProductCategories productCategories, ProductBrand productBrand, @Range(min = 0) Double discount,
+			MultipartFile productImage, List<CartItem> cartItems, String variants) {
 		super();
+		this.productId = productId;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.unitInStock = unitInStock;
 		this.productDescription = productDescription;
+		this.productModel = productModel;
 		this.productStatus = productStatus;
-		this.discount = discount;
-		this.productBrand = productBrand;
 		this.productCategories = productCategories;
+		this.productBrand = productBrand;
+		this.discount = discount;
 		this.productImage = productImage;
+		this.cartItems = cartItems;
 		this.variants = variants;
 	}
-	
-	
+
+
 	public Product() {
 		
 	}
@@ -199,5 +218,6 @@ public class Product implements Serializable{
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
 	}
+	
 	
 }
