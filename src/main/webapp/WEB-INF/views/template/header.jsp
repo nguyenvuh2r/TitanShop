@@ -63,7 +63,7 @@
     
     -->
     <!-- Default stylesheets-->
-    <link href="<c:url value="resources/lib/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/lib/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet"/>
     <!-- Template specific stylesheets-->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
@@ -95,7 +95,8 @@
               <li class="dropdown"><a href="#">Trang chủ</a></li>
               <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Shop</a>
               	<ul class="dropdown-menu">
-              	  <% for (ProductCategories category : cats) { %>
+              	  <% for (ProductCategories category : cats)  {  %>
+              	  
               		<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown"><%=category.getName()%></a>
 	              		<% if(category.getProductBrand() != null) { %>
 	              			<ul class="dropdown-menu">

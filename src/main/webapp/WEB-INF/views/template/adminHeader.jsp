@@ -129,19 +129,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/admin/productbrand/1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Nhãn hiệu</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/admin/productcategories/1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thể loại</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../layout/fixed-sidebar.html" class="nav-link">
+                <a href="/admin/productvariants/1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thuộc tính</p>
                 </a>

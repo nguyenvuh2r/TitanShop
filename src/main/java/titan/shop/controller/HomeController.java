@@ -59,15 +59,7 @@ public class HomeController implements HandlerExceptionResolver{
 	
 	@RequestMapping("/")
 	public String homePage(Model model){
-		Page<Product> page = productService.getAllProduct(1);
-	  
-		List<Product> products=new ArrayList<>();
-		
-		for (Product product : page) {
-			products.add(product);
-		}
-		
-		model.addAttribute("products", products);
+
 		
 		return "home";
 	}
