@@ -230,7 +230,6 @@
  {
 	 $('#variantGroup').empty();
 	 $.getJSON("/product/rest/categories/" + categoriesId + "/variant", function(data, textStatus, jqXHR){
-		 console.log(data);
 		 $.each(data, function(k, v) {
 			 $('#variantGroup').append('<div class="row">\
 					 <div class="col-12 col-sm-6">\
