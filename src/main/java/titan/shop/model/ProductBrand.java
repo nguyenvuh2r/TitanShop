@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "productbrand")
 public class ProductBrand {
@@ -20,6 +23,7 @@ public class ProductBrand {
 	private String name;
 	@Column(name = "image")
 	private String image;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "productCategoriesId")
 	private ProductCategories productCategories;
@@ -58,6 +62,5 @@ public class ProductBrand {
 	public ProductBrand() {
 		super();
 	}
-	
 	
 }

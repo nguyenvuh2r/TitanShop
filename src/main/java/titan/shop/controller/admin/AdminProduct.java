@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -86,9 +87,9 @@ public class AdminProduct implements HandlerExceptionResolver{
 			
 			MultipartFile productImage=product.getProductImage();
 			String rootDir=request.getSession().getServletContext().getRealPath("/");
-			path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\products\\" +product.getProductId()+ ".png");
+			path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\products\\" + product.getProductId() + ".jpg");
 			
-			if (productImage!=null && !productImage.isEmpty()) {
+			if (productImage != null && !productImage.isEmpty()) {
 				try {
 					productImage.transferTo(new File(path.toString()));
 					
@@ -128,9 +129,6 @@ public class AdminProduct implements HandlerExceptionResolver{
 		return "updateProduct";
 	}
 	
-	
-	
-	
 	@RequestMapping(value="/product/updateProduct", method=RequestMethod.POST)
 	public String updateProductPost(@ModelAttribute("product")Product product,BindingResult result,HttpServletRequest request){
 		
@@ -150,7 +148,7 @@ public class AdminProduct implements HandlerExceptionResolver{
 		
 		MultipartFile productImage=product.getProductImage();
 		String rootDir=request.getSession().getServletContext().getRealPath("/");
-		path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\"+product.getProductId()+".png");
+		path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\products\\"+product.getProductId()+".jpg");
 		
 		
 		if (productImage!=null && !productImage.isEmpty()) {

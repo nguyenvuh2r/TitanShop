@@ -1,5 +1,6 @@
 package titan.shop.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "productcategories")
 public class ProductCategories {
@@ -18,6 +22,7 @@ public class ProductCategories {
 	private int productCategoriesId;
 	@Column(name = "name")
 	private String name;
+	
 	@OneToMany(mappedBy = "productCategories",cascade =CascadeType.ALL )
 	Set<ProductBrand> productBrand;
 	@OneToMany(mappedBy = "productCategories",cascade =CascadeType.ALL )
@@ -34,9 +39,13 @@ public class ProductCategories {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+
 	public Set<ProductBrand> getProductBrand() {
 		return productBrand;
 	}
+	
+
 	public void setProductBrand(Set<ProductBrand> productBrand) {
 		this.productBrand = productBrand;
 	}
