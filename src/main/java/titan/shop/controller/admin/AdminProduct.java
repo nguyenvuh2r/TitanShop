@@ -105,12 +105,6 @@ public class AdminProduct implements HandlerExceptionResolver{
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-		
 		return "redirect:/admin/productManagement/1";
 	}
 	

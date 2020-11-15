@@ -1,5 +1,6 @@
 package titan.shop.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "productcategories")
-public class ProductCategories {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class ProductCategories implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productCategoriesId;
@@ -25,8 +27,11 @@ public class ProductCategories {
 	
 	@OneToMany(mappedBy = "productCategories",cascade =CascadeType.ALL )
 	Set<ProductBrand> productBrand;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productCategories",cascade =CascadeType.ALL )
 	Set<ProductVariant> productVariant;
+	
 	public int getProductCategoriesId() {
 		return productCategoriesId;
 	}
@@ -40,7 +45,12 @@ public class ProductCategories {
 		this.name = name;
 	}
 	
-
+	public Set<ProductVariant> getProductVariant() {
+		return productVariant;
+	}
+	public void setProductVariant(Set<ProductVariant> productVariant) {
+		this.productVariant = productVariant;
+	}
 	public Set<ProductBrand> getProductBrand() {
 		return productBrand;
 	}

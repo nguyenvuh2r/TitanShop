@@ -148,21 +148,24 @@
 	            <!-- /.form-group -->
             </div>
             <!-- /.row -->
-            <div class="row">
-	            <div class="col-12 col-sm-6">
-	              	 <div class="form-group">
-	              	 	<label>Các biến thể</label>
-	              	 	<form:input path="variants" class="form-control" placeholder="Nhập các biển thể" id="variants" />
-	              	 </div>
+            <h5>Các thuộc tính</h5>
+            <div id="variantGroup" style="background-color: #f5f5f5; padding: 20px;">
+            	<div class="row">
+		            <div class="col-12 col-sm-6">
+		              	 <div class="form-group">
+		              	 	<label>Các biến thể</label>
+		              	 </div>
+		            </div>
+		            <!-- /.form-group -->
+		            <div class="col-12 col-sm-6">
+		              	 <div class="form-group">
+		              	 	<form:input path="variants" class="form-control" placeholder="Nhập các biển thể" id="variants" />
+		              	 </div>
+		            </div>
+		            <!-- /.form-group -->
 	            </div>
-	            <!-- /.form-group -->
-	            <div class="col-12 col-sm-6">
-	              	 <div class="form-group">
-	              	 </div>
-	            </div>
-	            <!-- /.form-group -->
+	            <!-- /.row -->
             </div>
-            <!-- /.row -->
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
@@ -198,6 +201,7 @@
  $(document).ready(function () {
 	 var currCat = $('#productCategories').val();
 	 setListBrandData(currCat);
+	 generationVariantsField(currCat);
  });
  
  $('#productCategories').on('change', function () {
@@ -217,6 +221,29 @@
 				 $('#productBrand').append('<option value="' + v.productBrandId + '">' + v.name + '</option>');
 			 }
 			
+		 });
+	 })
+	 .fail(function (jqxhr,settings,ex) { console.log('failed, '+ ex); });
+ }
+ 
+ function generationVariantsField(categoriesId)
+ {
+	 $('#variantGroup').empty();
+	 $.getJSON("/product/rest/categories/" + categoriesId + "/variant", function(data, textStatus, jqXHR){
+		 console.log(data);
+		 $.each(data, function(k, v) {
+			 $('#variantGroup').append('<div class="row">\
+					 <div class="col-12 col-sm-6">\
+		              	 <div class="form-group">\
+		              	 	<label>Các biến thể</label>\
+		              	 </div>\
+		            </div>\
+		            <div class="col-12 col-sm-6">\
+		              	 <div class="form-group">\
+		              	 	<input type="text" class="form-control" placeholder="Nhập các biển thể"/>\
+		              	 </div>\
+		            </div>\
+	            </div>');
 		 });
 	 })
 	 .fail(function (jqxhr,settings,ex) { console.log('failed, '+ ex); });

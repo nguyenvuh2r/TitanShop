@@ -23,6 +23,7 @@ import titan.shop.exception.CustomError;
 import titan.shop.model.Product;
 import titan.shop.model.ProductBrand;
 import titan.shop.model.ProductCategories;
+import titan.shop.model.ProductVariant;
 import titan.shop.service.ProductBrandService;
 import titan.shop.service.ProductCategoriesService;
 import titan.shop.service.ProductService;
@@ -136,6 +137,17 @@ public class ProductController  implements HandlerExceptionResolver{
 		Set<ProductBrand> brandList = categories.getProductBrand();
 
 		return new ArrayList<>(brandList);
+	}
+	
+	@RequestMapping("rest/categories/{categoriesId}/variant")
+	@ResponseBody
+	public List<ProductVariant> getVariants(@PathVariable("categoriesId")int categoriesId) {
+		
+		ProductCategories categories = productCategoriesService.getOne(categoriesId);
+		
+		Set<ProductVariant> variantList = categories.getProductVariant();
+
+		return new ArrayList<>(variantList);
 	}
 	
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
