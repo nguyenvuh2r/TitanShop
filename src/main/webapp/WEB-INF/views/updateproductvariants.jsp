@@ -11,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Thêm biến thể</h1>
+            <h1>Sửa biến thể</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Thêm biến thể</li>
+              <li class="breadcrumb-item active">Sửa biến thể</li>
             </ol>
           </div>
         </div>
@@ -29,7 +29,7 @@
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title">Thêm biến thể</h3>
+            <h3 class="card-title">Sửa biến thể: <b>${productvariants.variant}</b></h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
@@ -39,6 +39,7 @@
           <!-- /.card-header -->
  	       <form:form modelAttribute="productvariants"  action="${pageContext.request.contextPath}/admin/productvariants/updateproductvariants?${_csrf.parameterName}=${_csrf.token}"  class="form-horizontal"  >
           <div class="card-body">
+       		<form:hidden path="productVariantsId" />
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">

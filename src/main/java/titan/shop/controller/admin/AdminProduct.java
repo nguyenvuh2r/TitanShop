@@ -62,6 +62,9 @@ public class AdminProduct implements HandlerExceptionResolver {
 	
 	@RequestMapping("/productvariants/addproductvariants")
 	public String addProducVariants(ModelMap model) {
+		List<ProductCategories> categoriesList = productCategoriesService.getAll();
+		
+		model.addAttribute("categoriesList", categoriesList);
 		model.addAttribute("productvariants", new ProductVariant());
 		return "addproductvariants";
 
@@ -81,6 +84,9 @@ public class AdminProduct implements HandlerExceptionResolver {
 	}
 	@RequestMapping("/productvariants/updateproductvariants/{id}")
 	public String updateProducVariants(ModelMap model,@PathVariable("id") int id) {
+		List<ProductCategories> categoriesList = productCategoriesService.getAll();
+		
+		model.addAttribute("categoriesList", categoriesList);
 		model.addAttribute("productvariants", pdv.getOne(id));
 		return "updateproductvariants";
 
@@ -301,6 +307,9 @@ public class AdminProduct implements HandlerExceptionResolver {
 	/* Section of product brand */
 	@RequestMapping("product/addBrand")
 	public String addBrand(ModelMap md) {
+		List<ProductCategories> categoriesList = productCategoriesService.getAll();
+		
+		md.addAttribute("categoriesList", categoriesList);
 		md.addAttribute("brand", new ProductBrand());
 		return "addBrand";
 	}
@@ -323,6 +332,10 @@ public class AdminProduct implements HandlerExceptionResolver {
 	@RequestMapping("productBrand/updateProductBrand/{id}")
 	public String updateProductBrand(ModelMap md, @PathVariable("id") int id) {
 		ProductBrand p = productBrandService.getOne(id);
+		
+		List<ProductCategories> categoriesList = productCategoriesService.getAll();
+		
+		md.addAttribute("categoriesList", categoriesList);
 		md.addAttribute("brand", p);
 		return "updateBrand";
 	}
@@ -367,7 +380,7 @@ public class AdminProduct implements HandlerExceptionResolver {
 			return modelAndView;
 		}
 
-		error.setMessage("Your request is not valid.Please Enter a valid request.");
+		error.setMessage("Your request is not valid. Please Enter a valid request.");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
 		System.out.println(ex);
@@ -376,6 +389,7 @@ public class AdminProduct implements HandlerExceptionResolver {
 	}
 
 	/* end section */
+	
 	/* Get all list from categoryList and variantList */
 	@ModelAttribute(name = "categoryList")
 	public Map getProduct() {

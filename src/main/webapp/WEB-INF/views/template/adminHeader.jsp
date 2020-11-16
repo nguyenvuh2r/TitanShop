@@ -143,7 +143,7 @@
               <li class="nav-item">
                 <a href="/admin/productvariants/1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thuộc tính</p>
+                  <p>Biến thể</p>
                 </a>
               </li>
             </ul>

@@ -17,12 +17,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Brand Name</h1>
+            <h1>Nhãn hiệu</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Brand</li>
+              <li class="breadcrumb-item active">Nhãn hiệu</li>
             </ol>
           </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-header">
                 <a class="btn btn-app bg-secondary" href="<spring:url value="/admin/product/addBrand"/>">
-                  <i class="far fa-plus-square"></i> Add new Brand
+                  <i class="far fa-plus-square"></i>
                 </a>
               </div>
               <!-- /.card-header -->
@@ -46,24 +46,19 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Brand Name</th>
-                    <th>Image</th>
-                    <th>ProductCategoriesName</th>
+                    <th>Tên nhãn hiệu</th>
+                    <th>Thể loại</th>
                     <th><i class="fas fa-cogs"></i></th>
                   </tr>
                   </thead>
                   <tbody>
                   <c:forEach items="${productbrand}" var="productbrand">
-                  
                   <tr>
                   	<td>${productbrand.productBrandId}</td>
                   	<td>${productbrand.name}</td>
-                  	<td style="width: 15%;"><img class="img-fluid img-thumbnail" alt="" src="<c:url value="/resources/images/${productBrand.image}.png"/>" /></td>
                   	<td> ${productbrand.productCategories.name} </td>
                   	<td>
-                  	
                   	<div class="btn-group">
-                  	  <a class="btn btn-info btn-xs" href="<spring:url value="/brand/viewBrand/${productbrand.productBrandId}"/>"><i class="fas fa-info-circle"></i></i></a>
 		              <a class="btn btn-info btn-xs" href="<spring:url value="/admin/productBrand/updateProductBrand/${productbrand.productBrandId}"/>"><i class="fas fa-edit"></i></a>
 		              <a class="btn btn-info btn-xs" href="<spring:url value="/admin/productBrand/deleteProductBrand/${productbrand.productBrandId}"/>"><i class="fas fa-trash-alt"></i></i></a>
                   	</div>
@@ -74,9 +69,8 @@
                   <tfoot>
                   <tr>
                    <th>ID</th>
-                    <th>Brand Name</th>
-                    <th>Image</th>
-                    <th>ProductCategoriesName</th>
+                    <th>Tên nhãn hiệu</th>
+                    <th>Thể loại</th>
                     <th><i class="fas fa-cogs"></i></th>
                   </tr>
                   </tfoot>

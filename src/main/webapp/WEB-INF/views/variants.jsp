@@ -17,12 +17,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Variants</h1>
+            <h1>Biến thể</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Variants</li>
+              <li class="breadcrumb-item active">Biến thể</li>
             </ol>
           </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-header">
                 <a class="btn btn-app bg-secondary" href="<spring:url value="/admin/productvariants/addproductvariants"/>">
-                  <i class="far fa-plus-square"></i>Variants
+                  <i class="far fa-plus-square"></i>
                 </a>
               </div>
               <!-- /.card-header -->
@@ -46,8 +46,8 @@
                   <thead>
                   <tr>
                      <th>ID</th>
-                    <th>Productvariants Name</th>
-                     <th>ProductCategories </th>
+                    <th>Tên biến thể</th>
+                     <th>Thể loại</th>
                     <th><i class="fas fa-cogs"></i></th>
                   </tr>
                   </thead>
@@ -70,8 +70,8 @@
                   <tfoot>
                   <tr>
                    <th>ID</th>
-                    <th>Productvariants Name</th>
-                     <th>ProductCategories </th>
+                    <th>Tên biến thể</th>
+                     <th>Thể loại</th>
                     <th><i class="fas fa-cogs"></i></th>
                   </tr>
                   </tfoot>
