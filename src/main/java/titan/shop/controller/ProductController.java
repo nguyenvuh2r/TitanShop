@@ -2,6 +2,7 @@ package titan.shop.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import titan.shop.exception.CustomError;
 import titan.shop.model.Product;
+import titan.shop.model.ProductBrand;
+import titan.shop.model.ProductCategories;
+import titan.shop.model.ProductVariant;
+import titan.shop.service.ProductBrandService;
+import titan.shop.service.ProductCategoriesService;
 import titan.shop.service.ProductService;
 
 
@@ -28,6 +35,12 @@ public class ProductController  implements HandlerExceptionResolver{
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductCategoriesService productCategoriesService;
+	
+	@Autowired
+	private ProductBrandService productBrandService;
 	
 	@RequestMapping("/productList/{productCategory}/{pageNumber}")
 	public String getProductByCategory(@PathVariable("pageNumber")int pageNumber,@PathVariable("productCategory")String productCategory,Model model){
@@ -94,18 +107,11 @@ public class ProductController  implements HandlerExceptionResolver{
 		return "productList";
 	}
 	
-	
-	
-	
-	
-	
 	@RequestMapping("/productList")
 	public String getAllProduct(Model model){
 		
 		List<Product> products=productService.getAllProduct();
 		model.addAttribute("products",products);
-		
-		
 		
 		return "productList";
 	}
@@ -122,7 +128,27 @@ public class ProductController  implements HandlerExceptionResolver{
 		return "productDetail";
 	}
 	
+	@RequestMapping("rest/categories/{categoriesId}/brand")
+	@ResponseBody
+	public List<ProductBrand> getCategories(@PathVariable("categoriesId")int categoriesId) {
+		
+		ProductCategories categories = productCategoriesService.getOne(categoriesId);
+		
+		Set<ProductBrand> brandList = categories.getProductBrand();
+
+		return new ArrayList<>(brandList);
+	}
 	
+	@RequestMapping("rest/categories/{categoriesId}/variant")
+	@ResponseBody
+	public List<ProductVariant> getVariants(@PathVariable("categoriesId")int categoriesId) {
+		
+		ProductCategories categories = productCategoriesService.getOne(categoriesId);
+		
+		Set<ProductVariant> variantList = categories.getProductVariant();
+
+		return new ArrayList<>(variantList);
+	}
 	
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {

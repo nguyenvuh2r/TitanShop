@@ -61,7 +61,7 @@
                   <tr>
                   	<td>${product.productId}</td>
                   	<td>${product.productName}</td>
-                  	<td style="width: 15%;"><img class="img-fluid img-thumbnail" alt="${product.productName}" src="<c:url value="/resources/images/${product.productId}.png"/>" /></td>
+                  	<td style="width: 15%;"><img class="img-fluid img-thumbnail" alt="${product.productName}" src="<c:url value="/resources/images/products/${product.productId}.jpg"/>" /></td>
                   	<td>${product.productPrice}</td>
                   	<td>${product.productBrand.name}</td>
                   	<td>${product.productCategories.name}</td>

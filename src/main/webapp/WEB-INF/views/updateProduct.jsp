@@ -39,8 +39,9 @@
             </div>
           </div>
           <!-- /.card-header -->
+             <form:form action="${pageContext.request.contextPath}/admin/product/updateProduct?${_csrf.parameterName}=${_csrf.token}" method="post" modelAttribute="product" enctype="multipart/form-data" class="form-horizontal">
           <div class="card-body">
-          <form:form action="${pageContext.request.contextPath}/admin/product/updateProduct?${_csrf.parameterName}=${_csrf.token}" method="post" modelAttribute="product" enctype="multipart/form-data" class="form-horizontal">
+       
             <form:hidden path="productId" value="${product.productId}"/>
             <div class="row">
               <div class="col-md-6">
@@ -59,7 +60,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Thể loại</label>
-                  <form:select path="productCategories" class="form-control select2" data-placeholder="Chọn thể loại" style="width: 100%;">
+                  <form:select path="productCategories" id="productCategories" class="form-control select2" data-placeholder="Chọn thể loại" style="width: 100%;">
 				    <c:forEach var="categories" items="${categoriesList}">
 				        <c:choose>
 				            <c:when test="${categories.productCategoriesId == product.productCategories.productCategoriesId}">
@@ -75,17 +76,8 @@
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Hãng sản phẩm</label>
-                  <form:select path="productBrand" class="form-control select2" data-placeholder="Chọn hãng" style="width: 100%;">
-				    <c:forEach var="brand" items="${brandsList}">
-				        <c:choose>
-				            <c:when test="${brand.productBrandId == product.productBrand.productBrandId}">
-				                <option value="${brand.productBrandId}" selected="true">${brand.name}</option>
-				            </c:when>
-				            <c:otherwise>
-				                <option value="${brand.productBrandId}">${brand.name}</option>
-				            </c:otherwise>
-				        </c:choose> 
-				    </c:forEach>
+                  <input type="hidden" name="productCurrentBrand" id="productCurrentBrand" value="${product.productBrand.productBrandId}"/>
+                  <form:select path="productBrand" id="productBrand" class="form-control" data-placeholder="Chọn hãng" style="width: 100%;">
 				  </form:select>
                 </div>
                 <!-- /.form-group -->
@@ -157,21 +149,24 @@
 	            <!-- /.form-group -->
             </div>
             <!-- /.row -->
-            <div class="row">
-	            <div class="col-12 col-sm-6">
-	              	 <div class="form-group">
-	              	 	<label>Các biến thể</label>
-	              	 	<form:input path="variants" class="form-control" placeholder="Nhập các biển thể" id="unitInStock" />
-	              	 </div>
+            <h5>Các thuộc tính</h5>
+            <div id="variantGroup" style="background-color: #f5f5f5; padding: 20px;">
+            	<div class="row">
+		            <div class="col-12 col-sm-6">
+		              	 <div class="form-group">
+		              	 	<label>Các biến thể</label>
+		              	 </div>
+		            </div>
+		            <!-- /.form-group -->
+		            <div class="col-12 col-sm-6">
+		              	 <div class="form-group">
+		              	 	<form:input path="variants" class="form-control" placeholder="Nhập các biển thể" id="variants" />
+		              	 </div>
+		            </div>
+		            <!-- /.form-group -->
 	            </div>
-	            <!-- /.form-group -->
-	            <div class="col-12 col-sm-6">
-	              	 <div class="form-group">
-	              	 </div>
-	            </div>
-	            <!-- /.form-group -->
+	            <!-- /.row -->
             </div>
-            <!-- /.row -->
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
@@ -196,17 +191,64 @@
   
  <%@include file="/WEB-INF/views/template/adminFooter.jsp" %>
  
- <script>
+ <script type="text/javascript">
  $(function () {
 	    //Initialize Select2 Elements
 	    $('.select2').select2();
 	  });
  </script>
  
- <script>
- document.onclick = function(e) {
-	    if (e.target instanceof HTMLAnchorElement) e.preventDefault();
-	}
+ <script type="text/javascript">
+ $(document).ready(function () {
+	 var currCat = $('#productCategories').val();
+	 setListBrandData(currCat);
+	 generationVariantsField(currCat);
+ });
+ 
+ $('#productCategories').on('change', function () {
+	 var currCat = $('#productCategories').val();
+	 setListBrandData(currCat);
+ });
+
+ function setListBrandData(categoriesId)
+ {
+	 $('#productBrand').empty();
+	 $.getJSON("/product/rest/categories/" + categoriesId + "/brand", function(data, textStatus, jqXHR){
+		 $.each(data, function(k, v) {
+			 if(v.productBrandId == $('#productCurrentBrand').val()) {
+				 $('#productBrand').append('<option value="' + v.productBrandId + '" selected>' + v.name + '</option>');
+			 }
+			 else {
+				 $('#productBrand').append('<option value="' + v.productBrandId + '">' + v.name + '</option>');
+			 }
+			
+		 });
+	 })
+	 .fail(function (jqxhr,settings,ex) { console.log('failed, '+ ex); });
+ }
+ 
+ function generationVariantsField(categoriesId)
+ {
+	 $('#variantGroup').empty();
+	 $.getJSON("/product/rest/categories/" + categoriesId + "/variant", function(data, textStatus, jqXHR){
+		 console.log(data);
+		 $.each(data, function(k, v) {
+			 $('#variantGroup').append('<div class="row">\
+					 <div class="col-12 col-sm-6">\
+		              	 <div class="form-group">\
+		              	 	<label>Các biến thể</label>\
+		              	 </div>\
+		            </div>\
+		            <div class="col-12 col-sm-6">\
+		              	 <div class="form-group">\
+		              	 	<input type="text" class="form-control" placeholder="Nhập các biển thể"/>\
+		              	 </div>\
+		            </div>\
+	            </div>');
+		 });
+	 })
+	 .fail(function (jqxhr,settings,ex) { console.log('failed, '+ ex); });
+ }
  </script>
  
  </body>

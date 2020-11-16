@@ -22,11 +22,12 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 public class Product implements Serializable{
 
-	
 	private static final long serialVersionUID = 10L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -123,11 +124,11 @@ public class Product implements Serializable{
 	public void setVariants(String variants) {
 		this.variants = variants;
 	}
-
+	
 	public ProductCategories getProductCategories() {
 		return productCategories;
 	}
-
+	
 	public void setProductCategories(ProductCategories productCategories) {
 		this.productCategories = productCategories;
 	}

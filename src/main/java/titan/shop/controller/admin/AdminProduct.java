@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -188,10 +189,9 @@ public class AdminProduct implements HandlerExceptionResolver {
 			}
 			product.setProductCategories(product.getProductCategories());
 			productService.addProduct(product);
-
-			MultipartFile productImage = product.getProductImage();
-			String rootDir = request.getSession().getServletContext().getRealPath("/");
-			path = Paths.get(rootDir + "\\WEB-INF\\resources\\images\\products\\" + product.getProductId() + ".png");
+			MultipartFile productImage=product.getProductImage();
+			String rootDir=request.getSession().getServletContext().getRealPath("/");
+			path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\products\\" + product.getProductId() + ".jpg");
 
 			if (productImage != null && !productImage.isEmpty()) {
 				try {
@@ -226,27 +226,32 @@ public class AdminProduct implements HandlerExceptionResolver {
 		return "updateProduct";
 	}
 
-	@RequestMapping(value = "/product/updateProduct", method = RequestMethod.POST)
-	public String updateProductPost(@ModelAttribute("product") Product product, BindingResult result,
-			HttpServletRequest request) {
+
+
+	@RequestMapping(value="/product/updateProduct", method=RequestMethod.POST)
+	public String updateProductPost(@ModelAttribute("product")Product product,BindingResult result,HttpServletRequest request){
+			System.out.println("abcd");
+			System.out.println(product.getVariants());
 
 		if (result.hasErrors()) {
 
 			return "addProduct";
 		}
 
-		MultipartFile productImage = product.getProductImage();
-		String rootDir = request.getSession().getServletContext().getRealPath("/");
-		path = Paths.get(rootDir + "\\WEB-INF\\resources\\images\\" + product.getProductId() + ".png");
+		
 
-		if (productImage != null && !productImage.isEmpty()) {
+		MultipartFile productImage=product.getProductImage();
+		String rootDir=request.getSession().getServletContext().getRealPath("/");
+		path=Paths.get(rootDir+"\\WEB-INF\\resources\\images\\products\\"+product.getProductId()+".jpg");
+		
+		
+		if (productImage!=null && !productImage.isEmpty()) {
 
-			// System.out.println("OKKKK--------------------");
 			try {
 
 				productImage.transferTo(new File(path.toString()));
 
-				// System.out.println("IMage Save at:"+path.toString());
+				System.out.println("IMage Save at:"+path.toString());
 			} catch (Exception e) {
 
 				e.printStackTrace();
