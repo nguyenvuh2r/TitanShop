@@ -39,7 +39,7 @@
             </div>
           </div>
           <!-- /.card-header -->
-             <form:form action="${pageContext.request.contextPath}/admin/product/updateProduct?${_csrf.parameterName}=${_csrf.token}" method="post" modelAttribute="product" enctype="multipart/form-data" class="form-horizontal">
+          <form:form action="${pageContext.request.contextPath}/admin/product/updateProduct?${_csrf.parameterName}=${_csrf.token}" onsubmit="preSubmit()" method="post" modelAttribute="product" enctype="multipart/form-data" class="form-horizontal">
           <div class="card-body">
        
             <form:hidden path="productId" value="${product.productId}"/>
@@ -151,22 +151,8 @@
             <!-- /.row -->
             <h5>Các thuộc tính</h5>
             <div id="variantGroup" style="background-color: #f5f5f5; padding: 20px;">
-            	<div class="row">
-		            <div class="col-12 col-sm-6">
-		              	 <div class="form-group">
-		              	 	<label>Các biến thể</label>
-		              	 </div>
-		            </div>
-		            <!-- /.form-group -->
-		            <div class="col-12 col-sm-6">
-		              	 <div class="form-group">
-		              	 	<form:input path="variants" class="form-control" placeholder="Nhập các biển thể" id="variants" />
-		              	 </div>
-		            </div>
-		            <!-- /.form-group -->
-	            </div>
-	            <!-- /.row -->
             </div>
+            <form:hidden path="variants" value="" />
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
@@ -201,8 +187,9 @@
  <script type="text/javascript">
  $(document).ready(function () {
 	 var currCat = $('#productCategories').val();
+	 var currProduct = $('#productId').val();
 	 setListBrandData(currCat);
-	 generationVariantsField(currCat);
+	 generationVariantsField(currProduct);
  });
  
  $('#productCategories').on('change', function () {
@@ -221,33 +208,53 @@
 			 else {
 				 $('#productBrand').append('<option value="' + v.productBrandId + '">' + v.name + '</option>');
 			 }
-			
 		 });
 	 })
 	 .fail(function (jqxhr,settings,ex) { console.log('failed, '+ ex); });
  }
  
- function generationVariantsField(categoriesId)
+ function generationVariantsField(productId)
  {
 	 $('#variantGroup').empty();
-	 $.getJSON("/product/rest/categories/" + categoriesId + "/variant", function(data, textStatus, jqXHR){
-		 $.each(data, function(k, v) {
-			 $('#variantGroup').append('<div class="row">\
-					 <div class="col-12 col-sm-6">\
-		              	 <div class="form-group">\
-		              	 	<label>Các biến thể</label>\
-		              	 </div>\
-		            </div>\
-		            <div class="col-12 col-sm-6">\
-		              	 <div class="form-group">\
-		              	 	<input type="text" class="form-control" placeholder="Nhập các biển thể"/>\
-		              	 </div>\
-		            </div>\
-	            </div>');
-		 });
-	 })
-	 .fail(function (jqxhr,settings,ex) { console.log('failed, '+ ex); });
+	 $.each(JSON.parse($('#variants').val()), function(k, v) {
+		 $('#variantGroup').append('<div class="row">' +
+				 '<div class="col-12 col-sm-6">' +
+	              	 '<div class="form-group">' +
+	              	 	'<label>' + k + '</label>' +
+	              	 '</div>' +
+	            '</div>' +
+	            '<div class="col-12 col-sm-6">' +
+	              	 '<div class="form-group">' +
+	              	 	'<input type="text" name="productVariant" key="' + k + '" class="form-control" placeholder="Nhập ' + k + '" value="' + v + '" />' +
+	              	 '</div>' +
+	            '</div>' +
+            '</div>' +
+            '<hr class="my-4">');
+	 });
  }
+ 
+ function createJSONVariant() {
+    jsonObj = [];
+    item = {}
+    
+    $("input[name='productVariant']").each(function() {
+        var name = $(this).attr("key");
+        var value = $(this).val();
+
+        item[name] = value;
+    });
+    
+    jsonObj.push(item);
+    
+    jsonString = JSON.stringify(jsonObj);
+
+    return jsonString.substring(1, jsonString.length-1);
+}
+ 
+function preSubmit()
+{
+	$('#variants').val(createJSONVariant());
+}
  </script>
  
  </body>

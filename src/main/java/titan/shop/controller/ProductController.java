@@ -150,6 +150,17 @@ public class ProductController  implements HandlerExceptionResolver{
 		return new ArrayList<>(variantList);
 	}
 	
+	@RequestMapping("rest/{productId}/variant")
+	@ResponseBody
+	public String getProductVariants(@PathVariable("productId")long productId) {
+		
+		Product product = productService.getProductById(productId);
+		
+		String variant = product.getVariants();
+
+		return variant;
+	}
+	
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
 		ModelAndView modelAndView=new ModelAndView();
