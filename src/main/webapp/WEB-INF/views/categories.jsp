@@ -22,7 +22,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Categories</li>
+              <li class="breadcrumb-item active">Thể loại</li>
             </ol>
           </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-header">
                 <a class="btn btn-app bg-secondary" href="<spring:url value="/admin/productcategories/addproductcategories"/>">
-                  <i class="far fa-plus-square"></i>Categories
+                  <i class="far fa-plus-square"></i>
                 </a>
               </div>
               <!-- /.card-header -->
@@ -46,7 +46,7 @@
                   <thead>
                   <tr>
                      <th>ID</th>
-                    <th>ProductCategories Name</th>
+                    <th>Tên thể loại</th>
                     <th><i class="fas fa-cogs"></i></th>
                   </tr>
                   </thead>
@@ -69,7 +69,7 @@
                   <tfoot>
                   <tr>
                    <th>ID</th>
-                    <th>ProductCategories Name</th>
+                    <th>Tên thể loại</th>
                     <th><i class="fas fa-cogs"></i></th>
                   </tr>
                   </tfoot>

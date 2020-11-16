@@ -174,6 +174,13 @@ public class AdminProduct implements HandlerExceptionResolver {
 
 		Product product = new Product();
 		product.setProductStatus("Brand New");
+		
+		List<ProductCategories> categoriesList = productCategoriesService.getAll();
+
+		List<ProductBrand> brandsList = productBrandService.getAll();
+
+		model.addAttribute("categoriesList", categoriesList);
+		model.addAttribute("brandsList", brandsList);
 		model.addAttribute("product", product);
 		return "addProduct";
 
@@ -230,15 +237,11 @@ public class AdminProduct implements HandlerExceptionResolver {
 
 	@RequestMapping(value="/product/updateProduct", method=RequestMethod.POST)
 	public String updateProductPost(@ModelAttribute("product")Product product,BindingResult result,HttpServletRequest request){
-			System.out.println("abcd");
-			System.out.println(product.getVariants());
 
 		if (result.hasErrors()) {
 
 			return "addProduct";
 		}
-
-		
 
 		MultipartFile productImage=product.getProductImage();
 		String rootDir=request.getSession().getServletContext().getRealPath("/");

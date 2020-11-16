@@ -1,60 +1,78 @@
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="/WEB-INF/views/template/adminHeader.jsp" %>
-<div class="container-wrapper">
-    
-    <div class="content-wrapper">
-   
-  
 
-	<section class="content-header">
+<%@ page pageEncoding="UTF-8" %>
+
+<%@include file="/WEB-INF/views/template/adminHeader.jsp" %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Update ProductCategories</h1>
+            <h1>Thêm thể loại</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Thêm thể loại</li>
+            </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-	    
-	    
-	   <section class="content">
-	     
-		<div class="form-layout">
-	       <form:form modelAttribute="productcategories"  action="${pageContext.request.contextPath}/admin/productcategories/updateproductcategories?${_csrf.parameterName}=${_csrf.token}"  class="form-horizontal"  >
-						
-				
-				<div class="row">
-			         <label class="col-xs-3 control-label" ></label>
-					 <div class="col-xs-9">
-				       <form:errors path="name" cssStyle="color: #ff0000" />		
-					 </div>
-			    
-			    </div>	
-			  
-				<div class="form-group has-success">
-					<label class="col-xs-3 control-label" for="productName">Brand Name :</label>
-					<div class="col-xs-9">
-						<form:hidden path="productCategoriesId" class="form-control" placeholder="Enter Product Name" />
-					   <form:input path="name" class="form-control" placeholder="Enter Product Name"  />
-					</div>
-				</div>
-				<div class="form-group has-success">
-					<label class="col-xs-3 control-label"></label>
-					<div class="col-xs-9">
-						 <input type="submit" value="Submit" class="btn btn-default">
-             <a href="<c:url value="/admin/productManagement" />"  class="btn btn-default">Cancel</a>
-					</div>
-				</div>
-			
-			 
-			</form:form>
-		</div>
-    </section>
-    </div>
 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Thêm thể loại</b></h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+ 	       <form:form modelAttribute="productcategories"  action="${pageContext.request.contextPath}/admin/productcategories/updateproductcategories?${_csrf.parameterName}=${_csrf.token}"  class="form-horizontal"  >
+          <div class="card-body">
+       
+            <form:hidden path="productCategoriesId" class="form-control"/>
+            <div class="row">
+              <div class="col-md-12 col-sm-6">
+                <div class="form-group">
+                  <label>Tên thể loại</label>
+                  <form:input path="name" class="form-control" placeholder="Enter Product Name"  />
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <input type="submit" value="Lưu" class="btn btn-block btn-outline-primary btn-flat"/>
+              </div>
+              <div class="col-12 col-sm-6">
+                <a href="<c:url value="/admin/productManagement/1"/>" class="btn btn-block btn-outline-primary btn-flat">Hủy</a>
+              </div>
+            </div>
+            <!-- /.row -->
+          </div>
+          </form:form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
+
 <script>
   $(function() {
     $('#mainTable').DataTable({
@@ -69,5 +87,7 @@
   });
 </script>
 
-
 <%@include file="/WEB-INF/views/template/adminFooter.jsp" %>
+
+</body>
+</html>

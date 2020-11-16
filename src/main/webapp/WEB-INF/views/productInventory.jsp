@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-header">
                 <a class="btn btn-app bg-secondary" href="<spring:url value="/admin/product/addProduct"/>">
-                  <i class="far fa-plus-square"></i> Thêm sản phẩm
+                  <i class="far fa-plus-square"></i>
                 </a>
               </div>
               <!-- /.card-header -->

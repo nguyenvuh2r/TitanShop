@@ -108,7 +108,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<c:url value="/admin/customerManagement" />" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Người dùng</p>
             </a>
@@ -149,13 +149,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<c:url value="/admin/customerOrder" />" class="nav-link">
               <i class="nav-icon fas fa-money-bill"></i>
-              <p> Hóa đơn</p>
+              <p>Hóa đơn</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<c:url value="/admin/customerMessages/1" />" class="nav-link">
               <i class="nav-icon fas fa-envelope-open"></i>
               <p>Tin nhắn</p>
             </a>
