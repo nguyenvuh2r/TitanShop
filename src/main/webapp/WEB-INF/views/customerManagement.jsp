@@ -17,11 +17,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Customer Manager</h1>
+            <h1>Nhãn hiệu</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Nhãn hiệu</li>
             </ol>
           </div>
         </div>
@@ -35,41 +36,50 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
+                <a class="btn btn-app bg-secondary" href="<spring:url value="/admin/product/addBrand"/>">
+                  <i class="far fa-plus-square"></i>
+                </a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="mainTable" class="display table table-bordered table-striped">
                   <thead>
-                   <thead>
-		            <tr>
-		                <th>Name</th>
-		                <th>Phone</th>
-		                <th>Username</th>
-		                <th>Enabled</th>
-		                <th>Shipping</th>
-		                <th><i class="fas fa-cogs"></i></th>
-		            </tr>
-		            </thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                     <th>Username</th>
+                      <th>Enable</th>
+                    <th><i class="fas fa-cogs"></i></th>
+                  </tr>
+                  </thead>
                   <tbody>
-                   <c:forEach items="${customers}" var="customer">
-                <tr>
-                    <td>${customer.customerName}</td>
-                    <td>${customer.custometPhoneNumber}</td>
-                    <td>${customer.username}</td>
-                    <td>${customer.enabled}</td>
-                    <td><a href=" <spring:url value="/admin/customerManagement/address/${customer.customerId}"/>"><i class="fas fa-check-circle"></i></a></td>
-                    
-                </tr>
-            </c:forEach>
+                  <c:forEach items="${customers}" var="customers">
+                  <tr>
+                  	<td>${customers.customerId}</td>
+                  	<td>${customers.customerName}</td>
+                  	<td> ${customers.customerEmailAddress} </td>
+                  	<td> ${customers.custometPhoneNumber} </td>
+                  	<td> ${customers.username} </td>
+                  	<td> ${customers.enabled} </td>
+                  	<td>
+                  	 <a href="/admin/customerManagement/address/${customers.customerId}"><i class="far fa-question-circle"></i></a>
+                  	</td>
+                  </tr>
+                  </c:forEach>
                   </tbody>
-                <tr>
-		                <th>Name</th>
-		                <th>Phone</th>
-		                <th>Username</th>
-		                <th>Enabled</th>
-		                <th>Shipping</th>
-		                <th><i class="fas fa-cogs"></i></th>
-		            </tr>
+                  <tfoot>
+                  <tr>
+                     <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                     <th>Username</th>
+                      <th>Enable</th>
+                    <th><i class="fas fa-cogs"></i></th>
+                  </tr>
+                  </tfoot>
                 </table>
                 <div class="row">
                   <div class="col-sm-12 col-md-5">
