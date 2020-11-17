@@ -17,12 +17,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Nhãn hiệu</h1>
+            <h1>Người dùng</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Nhãn hiệu</li>
+              <li class="breadcrumb-item active">Người dùng</li>
             </ol>
           </div>
         </div>
@@ -46,12 +46,12 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Tên</th>
                     <th>Email</th>
-                    <th>Phone</th>
-                     <th>Username</th>
-                      <th>Enable</th>
-                    <th><i class="fas fa-cogs"></i></th>
+                    <th>Điện thoại</th>
+                    <th>Tài khoản</th>
+                    <th>Enable</th>
+                    <th>Thông tin khác</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -71,13 +71,13 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                     <th>ID</th>
-                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Tên</th>
                     <th>Email</th>
-                    <th>Phone</th>
-                     <th>Username</th>
-                      <th>Enable</th>
-                    <th><i class="fas fa-cogs"></i></th>
+                    <th>Điện thoại</th>
+                    <th>Tài khoản</th>
+                    <th>Enable</th>
+                    <th>Thông tin khác</th>
                   </tr>
                   </tfoot>
                 </table>

@@ -10,27 +10,23 @@
     <div class="content-wrapper">
     
       	<div class="container">
-      		
       		  <div class="page-header">
-            <h1>Customer Shipping Address & Billing Address Page</h1>
-
-            <p class="lead">Here is address of ${customer.customerName}</p>
-        </div>
+            <p class="lead">Thông tin liên lạc của ${customer.customerName}</p>
+            </div>
     
-      <h1>Shipping Address</h1>
+      <h3>Địa chỉ ship</h3>
         <table class="table table-striped table-hover">
             <thead>
             <tr >
-                <th>Strret Name</th>
-                <th>Apartment Number</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Country</th>
+                <th>Tên đường</th>
+                <th>Số nhà</th>
+                <th>Thành phố</th>
+                <th>Tỉnh/Thành</th>
+                <th>Quốc gia</th>
                 <th>ZipCode</th>
                 
             </tr>
             </thead>
-            
                 <tr>
                     <td>${customer.shippingAddress.strretName}</td>
                     <td>${customer.shippingAddress.apartmentNumber}</td>
@@ -42,22 +38,16 @@
            
         </table>
         
-        
-        
-        
-        
-        
-        <h1>Billing Address</h1>
+        <h3>Địa chỉ nhà</h3>
         <table class="table table-striped table-hover">
             <thead>
             <tr >
-                <th>Strret Name</th>
-                <th>Apartment Number</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Country</th>
-                <th>ZipCode</th>
-                
+				<th>Tên đường</th>
+                <th>Số nhà</th>
+                <th>Thành phố</th>
+                <th>Tỉnh/Thành</th>
+                <th>Quốc gia</th>
+                <th>ZipCode</th>                
             </tr>
             </thead>
             
@@ -70,11 +60,10 @@
                     <td>${customer.billingAddress.zipCode}</td>
                 </tr>
            
-        </table>
-      		
-      	</div>
-        </div>
-        </div>
-        
-        
+        </table>      		
+    </div>
+</div>
+
 <%@include file="/WEB-INF/views/template/adminFooter.jsp" %>
+</body>
+</html>
