@@ -21,7 +21,7 @@ public class GlobalException implements HandlerExceptionResolver{
 		ModelAndView modelAndView=new ModelAndView();
 		
 		CustomError error=new CustomError();
-		error.setMessage("You are trying to access an unauthorized page.Please enter a valid url.");
+		error.setMessage("You are trying to access an unauthorized page. Please enter a valid url.");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
 		return modelAndView;
