@@ -42,43 +42,10 @@ import titan.shop.service.ProductService;
 
 @Controller
 public class HomeController implements HandlerExceptionResolver{
-	@Autowired
-	private CustomerService customerService;
-	
-	@Autowired
-	private CustomerContactService customerContactService;
-	
-	@Autowired
-	private ProductService productService;
 	
 	@Autowired
 	ProductCategoriesService productCategoriesService;
 	
-   @Autowired
-   private ProductBrandService productBrandService;
-	
-	@RequestMapping("/")
-	public String homePage(Model model){
-
-		
-		return "home";
-	}
-	
-	@GetMapping("/getca")
-	@ResponseBody
-	public List<ProductCategories> list()
-	{
-		return productCategoriesService.getAll();
-	}
-   
-   @GetMapping("/test")
-   @ResponseBody
-   public List<ProductBrand> getTest()
-   {
-	   return productBrandService.getAll();
-   }
-	
-   
    @RequestMapping("/login")
    public String login(
            @RequestParam(value="error", required = false)
@@ -119,40 +86,6 @@ public class HomeController implements HandlerExceptionResolver{
      cookie.setPath(StringUtils.hasLength(request.getContextPath()) ? request.getContextPath() : "/");
      response.addCookie(cookie);
    }
-   
-   @RequestMapping("/about")
-	public String aboutPage(){
-		
-		return "about";
-	}
-   
-   
-   
-   @RequestMapping(value="/contact",method=RequestMethod.GET)
-  	public String contact(){
-  		
-  		return "contact";
-  	}
-   
-   
-   @RequestMapping(value="/contact",method=RequestMethod.POST)
- 	public String contactPost(@AuthenticationPrincipal User activeUser,@RequestParam("message")String message,Model model){
-	   Customer customer = customerService.findCustomerByUsername(activeUser.getUsername());
-	   
-	   CustomerContact customerContact=new CustomerContact();
-	   customerContact.setContactInfo(message);
-	   customerContact.setCustomer(customer);
-	   customerContact.setDate(new Date());
-	   
-	   customerContactService.addNewMessage(customerContact);
-	   
-	   model.addAttribute("msg","Message is sent to the green online shop");
-	   
- 		return "contact";
- 	}
-   
-   
-   
  
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
