@@ -1,5 +1,9 @@
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@include file="/WEB-INF/views/template/header.jsp" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ page pageEncoding="UTF-8" %>
+
+<%@include file="/WEB-INF/views/template/adminHeader.jsp" %>
 
 <c:url var="firstUrl" value="/admin/customerMessages/1" />
 <c:url var="lastUrl" value="/admin/customerMessages/${totalPages}" />
@@ -10,14 +14,14 @@
  
  
  
-  <div class="container">
-      
+  <div class="content-wrapper">
+      <div class="container"> 
       <div class=row>
       
              
       
 	        <div class="jumbotron col-md-12">
-			    <h1>Green Online Shop</h1>
+			    <h1>Tittan Shophere</h1>
 			    <p>Here is all customer messages,reports,complaints</p>
 			    
 	       </div>
@@ -196,6 +200,7 @@
  
  
  </c:if>
+</div> 
 
 
 
@@ -205,5 +210,4 @@
 
 
 
-
-<%@include file="/WEB-INF/views/template/footer.jsp" %>	
+<%@include file="/WEB-INF/views/template/adminFooter.jsp" %>

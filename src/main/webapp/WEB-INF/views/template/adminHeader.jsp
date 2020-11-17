@@ -108,7 +108,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<c:url value="/admin/customerManagement" />" class="nav-link">
+            <a href="<c:url value="/admin/customerManagement/1" />" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Người dùng</p>
             </a>

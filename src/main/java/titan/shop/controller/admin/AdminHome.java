@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import titan.shop.dao.CustomerDao;
 import titan.shop.dao.ProductBrandDao;
 import titan.shop.dao.ProductCategoriesDao;
 import titan.shop.dao.ProductVariantDao;
@@ -218,19 +219,32 @@ public class AdminHome implements HandlerExceptionResolver{
 	}
 	
 	
-	
-	@RequestMapping("/customerManagement")
-	public String customerManagement(Model model){
-		Page<Product> page = productService.getAllProduct(1);
-		  
-		List<Product> products=new ArrayList<>();
+	@Autowired
+	private CustomerDao d;
+	@RequestMapping("/customerManagement/{pageNumber}")
+	public String customerManagement(Model model,@PathVariable Integer pageNumber  ){
 		
-		for (Product product : page) {
-			products.add(product);
+		PageRequest pageRequest= PageRequest.of(pageNumber-1, 2);
+		Page<Customer> page=d.findAll(pageRequest);
+		System.out.println(page.getNumberOfElements());
+		int currentPageNumber=page.getNumber()+1;
+		int beginIndex=Math.max(1, currentPageNumber-6);
+		int endIndex=Math.min(beginIndex+10, page.getTotalPages());
+		
+		
+		
+      List<Customer> customers=new ArrayList<>();
+		
+		
+		
+		for (Customer customer: page) {
+			customers.add(customer);
 		}
-		model.addAttribute("products", products);
-		
-		List<Customer> customers=customerService.getAllCustomers();
+
+		model.addAttribute("totalPages",page.getTotalPages());
+		model.addAttribute("currentPageNumber",currentPageNumber);
+		model.addAttribute("beginIndex",beginIndex);
+		model.addAttribute("endIndex",endIndex);
 		model.addAttribute("customers",customers);
 		
 		return "customerManagement";

@@ -1,10 +1,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ include file="/WEB-INF/views/template/header.jsp" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ page pageEncoding="UTF-8" %>
+
+<%@include file="/WEB-INF/views/template/adminHeader.jsp" %>
 
 <div class="container-wrapper">
-    <div class="container">
-        <div class="page-header">
+    <div class="content-wrapper">
+    
+      	<div class="container">
+      		
+      		  <div class="page-header">
             <h1>Customer Shipping Address & Billing Address Page</h1>
 
             <p class="lead">Here is address of ${customer.customerName}</p>
@@ -13,7 +20,7 @@
       <h1>Shipping Address</h1>
         <table class="table table-striped table-hover">
             <thead>
-            <tr class="bg-success">
+            <tr >
                 <th>Strret Name</th>
                 <th>Apartment Number</th>
                 <th>City</th>
@@ -43,7 +50,7 @@
         <h1>Billing Address</h1>
         <table class="table table-striped table-hover">
             <thead>
-            <tr class="bg-success">
+            <tr >
                 <th>Strret Name</th>
                 <th>Apartment Number</th>
                 <th>City</th>
@@ -64,14 +71,10 @@
                 </tr>
            
         </table>
+      		
+      	</div>
+        </div>
+        </div>
         
         
-        
-        
-        
-        
-        
-        
-        
-
-<%@ include file="/WEB-INF/views/template/footer.jsp" %>
+<%@include file="/WEB-INF/views/template/adminFooter.jsp" %>
