@@ -60,6 +60,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Thể loại</label>
+                  <input type="hidden" name="currentCategory" id="currentCategory" value="${product.productCategories.productCategoriesId}" />
                   <form:select path="productCategories" id="productCategories" class="form-control select2" data-placeholder="Chọn thể loại" style="width: 100%;">
 				    <c:forEach var="categories" items="${categoriesList}">
 				        <c:choose>
@@ -195,6 +196,14 @@
  $('#productCategories').on('change', function () {
 	 var currCat = $('#productCategories').val();
 	 setListBrandData(currCat);
+	 if(currCat == $('#currentCategory').val())
+	 {
+		 generationVariantsField(currCat);
+	 }
+	 else
+	 {
+		 generationVariantsFieldByCategories(currCat);
+	 }
  });
 
  function setListBrandData(categoriesId)
@@ -231,6 +240,29 @@
             '</div>' +
             '<hr class="my-4">');
 	 });
+ }
+ 
+ function generationVariantsFieldByCategories(categoriesId)
+ {
+	 $('#variantGroup').empty();
+	 $.getJSON("/product/rest/categories/" + categoriesId + "/variant", function(data, textStatus, jqXHR){
+		 $.each(data, function(k, v) {
+			 $('#variantGroup').append('<div class="row">' +
+					 '<div class="col-12 col-sm-6">' +
+		              	 '<div class="form-group">' +
+		              	 	'<label>' + v.variant + '</label>' +
+		              	 '</div>' +
+		            '</div>' +
+		            '<div class="col-12 col-sm-6">' +
+		              	 '<div class="form-group">' +
+		              	 	'<input type="text" name="productVariant" key="' + v.variant + '" class="form-control" placeholder="Nhập ' + v.variant + '" value="" />' +
+		              	 '</div>' +
+		            '</div>' +
+	            '</div>' +
+	            '<hr class="my-4">');
+		 });
+	 })
+	 .fail(function (jqxhr,settings,ex) { console.log('failed, '+ ex); });
  }
  
  function createJSONVariant() {

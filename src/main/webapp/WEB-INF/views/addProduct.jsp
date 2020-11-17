@@ -185,6 +185,7 @@
  $('#productCategories').on('change', function () {
 	 var currCat = $('#productCategories').val();
 	 setListBrandData(currCat);
+	 generationVariantsField(currCat);
  });
 
  function setListBrandData(categoriesId)

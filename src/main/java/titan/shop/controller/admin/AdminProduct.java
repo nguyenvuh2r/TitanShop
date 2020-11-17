@@ -105,12 +105,13 @@ public class AdminProduct implements HandlerExceptionResolver {
 
 	}
 	@RequestMapping("/productvariants/deleteproductvariants/{id}")
-	public String deleteProducVariants(ModelMap model,@PathVariable("id") int id) {
+	public String deleteProducVariants(ModelMap model,@PathVariable("id") int id, HttpServletRequest request)
+			throws Exception {
 			try {
 				pdv.delete(pdv.getOne(id));
 			} catch (Exception e) {
-				e.printStackTrace();
-				// TODO: handle exception
+				System.out.println("------------------------------------------------------------------");
+				throw new DatabaseForeignKeyException();
 			}
 		return "redirect:/admin/productvariants/1";
 
@@ -162,13 +163,13 @@ public class AdminProduct implements HandlerExceptionResolver {
 
 	}
 	@RequestMapping("/productcategories/deleteproductcategories/{id}")
-	public String deleteProductCategories(@PathVariable(name = "id") int id)
+	public String deleteProductCategories(@PathVariable(name = "id") int id, HttpServletRequest request) throws Exception
 	{
 		try {
 			pdvc.delete(pdvc.getOne(id));
 		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			System.out.println("------------------------------------------------------------------");
+			throw new DatabaseForeignKeyException();		
 		}
 		return "redirect:/admin/productcategories/1";
 	}
@@ -214,7 +215,7 @@ public class AdminProduct implements HandlerExceptionResolver {
 				} catch (Exception e) {
 
 					e.printStackTrace();
-					throw new RuntimeException("Product image saving failed", e);
+					throw new RuntimeException("Product image saving failed!", e);
 				}
 			}
 		} catch (Exception e) {
@@ -354,14 +355,16 @@ public class AdminProduct implements HandlerExceptionResolver {
 	}
 
 	@RequestMapping("/productBrand/deleteProductBrand/{id}")
-	public String deleteProductBrand(ModelMap md, @PathVariable("id") int id) {
-		ProductBrand p = productBrandService.getOne(id);
+	public String deleteProductBrand(ModelMap md, @PathVariable("id") int id, HttpServletRequest request) throws Exception {
 		try {
+			ProductBrand p = productBrandService.getOne(id);
 			productBrandService.delete(p);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("------------------------------------------------------------------");
+			throw new DatabaseForeignKeyException();
 		}
-		md.addAttribute("brand", p);
+		
 		return "redirect:/admin/productbrand/1";
 	}
 
@@ -372,18 +375,16 @@ public class AdminProduct implements HandlerExceptionResolver {
 		ModelAndView modelAndView = new ModelAndView();
 		CustomError error = new CustomError();
 		if (ex instanceof DatabaseForeignKeyException) {
-
 			error.setMessage(
-					"You can not delete a product until you clear customer order.In customer order this product exist.");
+					"Có lỗi xảy ra, vui lòng kiểm tra lại!");
 			modelAndView.addObject("customError", error);
 			modelAndView.setViewName("error_page");
 			return modelAndView;
 		}
-
-		error.setMessage("Your request is not valid. Please Enter a valid request.");
+		
+		error.setMessage("Có lỗi xảy ra, vui lòng kiểm tra lại!.");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
-		System.out.println(ex);
 
 		return modelAndView;
 	}
