@@ -3,8 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2020 at 02:32 PM
+-- Generation Time: Nov 17, 2020 at 10:38 AM
 -- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -127,7 +128,7 @@ INSERT INTO `cart` (`cartId`, `grandTotal`, `customerId`) VALUES
 (15, 0, 17),
 (16, 0, 18),
 (17, 0, 19),
-(18, 0, 20),
+(18, 1000000, 20),
 (19, 0, 21);
 
 -- --------------------------------------------------------
@@ -310,8 +311,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`productId`, `discount`, `productBrand`, `productCategory`, `productDescription`, `productModel`, `productName`, `productPrice`, `productStatus`, `unitInStock`, `productCategoriesId`, `productBrandId`, `variants`) VALUES
-(24, 2, 'Samsung', 'Mobile', '4.80-inch touchscreen display with a resolution of 720 pixels by 1280 pixels', 'Galaxy S III', 'Samsung Galaxy', 70, 'Brand New', 100, 0, 0, ''),
-(25, 0, 'A', 'Laptop', 'dddd', 'A', 'A', 100, 'Brand New', 10, 0, 0, '');
+(24, 2, 'Samsung', 'Mobile', '4.80-inch touchscreen display with a resolution of 720 pixels by 1280 pixels', NULL, 'Samsung Galaxy', 70, 'Brand New', 100, 1, 2, '{\"Màn hình\":\"Full HD\",\"Pin\":\"5000\"}'),
+(25, 0, 'A', 'Laptop', 'asfasfasfaf', NULL, 'A', 100, 'Brand New', 100000, 1, 1, '{\"Màn hình\":\"Full HD\",\"Pin\":\"5000\"}'),
+(29, 10, NULL, NULL, 'safasfasf', NULL, 'IPhone 12', 10000, 'Brand New', 100000, 1, 1, '{\"Màn hình\":\"90000\",\"Pin\":\"2K\"}');
 
 -- --------------------------------------------------------
 
@@ -332,9 +334,7 @@ CREATE TABLE `productbrand` (
 
 INSERT INTO `productbrand` (`productBrandId`, `name`, `image`, `productCategoriesId`) VALUES
 (1, 'Samsung', '', 1),
-(2, 'IPhone', '', 1),
-(3, 'HP', '', 2),
-(5, 'Dell', '', 2);
+(2, 'IPhone', '', 1);
 
 -- --------------------------------------------------------
 
@@ -353,7 +353,7 @@ CREATE TABLE `productcategories` (
 
 INSERT INTO `productcategories` (`productCategoriesId`, `name`) VALUES
 (1, 'Điện thoại'),
-(2, 'Laptop');
+(5, 'Máy tính');
 
 -- --------------------------------------------------------
 
@@ -374,8 +374,8 @@ CREATE TABLE `productvariants` (
 INSERT INTO `productvariants` (`productVariantsId`, `variant`, `productCategoriesId`) VALUES
 (1, 'Màn hình', 1),
 (2, 'Pin', 1),
-(3, 'CPU', 2),
-(4, 'RAM', 2);
+(5, 'RAM', 5),
+(6, 'CPU', 5);
 
 -- --------------------------------------------------------
 
@@ -527,13 +527,17 @@ ALTER TABLE `persistent_logins`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`productId`);
+  ADD PRIMARY KEY (`productId`),
+  ADD KEY `productCategoriesId` (`productCategoriesId`,`productBrandId`),
+  ADD KEY `product_ibfk_2` (`productBrandId`);
 
 --
 -- Indexes for table `productbrand`
 --
 ALTER TABLE `productbrand`
-  ADD PRIMARY KEY (`productBrandId`);
+  ADD PRIMARY KEY (`productBrandId`),
+  ADD KEY `productCategoriesId` (`productCategoriesId`),
+  ADD KEY `productCategoriesId_2` (`productCategoriesId`);
 
 --
 -- Indexes for table `productcategories`
@@ -545,7 +549,8 @@ ALTER TABLE `productcategories`
 -- Indexes for table `productvariants`
 --
 ALTER TABLE `productvariants`
-  ADD PRIMARY KEY (`productVariantsId`);
+  ADD PRIMARY KEY (`productVariantsId`),
+  ADD KEY `productCategoriesId` (`productCategoriesId`);
 
 --
 -- Indexes for table `shippingaddress`
@@ -609,7 +614,7 @@ ALTER TABLE `customerorder`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `productId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `productId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `productbrand`
@@ -621,13 +626,13 @@ ALTER TABLE `productbrand`
 -- AUTO_INCREMENT for table `productcategories`
 --
 ALTER TABLE `productcategories`
-  MODIFY `productCategoriesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `productCategoriesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `productvariants`
 --
 ALTER TABLE `productvariants`
-  MODIFY `productVariantsId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `productVariantsId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `shippingaddress`
@@ -698,6 +703,25 @@ ALTER TABLE `customerorder`
 ALTER TABLE `order_product`
   ADD CONSTRAINT `FK98B580BE5CBA1E7` FOREIGN KEY (`productId`) REFERENCES `product` (`productId`),
   ADD CONSTRAINT `FK98B580BEFB141589` FOREIGN KEY (`customerOrderId`) REFERENCES `customerorder` (`customerOrderId`);
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`productCategoriesId`) REFERENCES `productcategories` (`productCategoriesId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`productBrandId`) REFERENCES `productbrand` (`productBrandId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `productbrand`
+--
+ALTER TABLE `productbrand`
+  ADD CONSTRAINT `productbrand_ibfk_1` FOREIGN KEY (`productCategoriesId`) REFERENCES `productcategories` (`productCategoriesId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `productvariants`
+--
+ALTER TABLE `productvariants`
+  ADD CONSTRAINT `productvariants_ibfk_1` FOREIGN KEY (`productCategoriesId`) REFERENCES `productcategories` (`productCategoriesId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
