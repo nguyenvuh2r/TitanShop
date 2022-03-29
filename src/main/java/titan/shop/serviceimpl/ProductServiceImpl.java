@@ -29,7 +29,6 @@ public class ProductServiceImpl implements ProductService {
 	public void addProduct(Product product) {
 		
 		productDao.save(product);
-		
 	}
 
 	
@@ -53,12 +52,7 @@ public class ProductServiceImpl implements ProductService {
 		productDao.deleteById(productId);
 		
 	}
-	@Transactional(readOnly = true)
-	@Override
-	public List<Product> getAllProductByCategory(String category) {
-	 
-		return productDao.findAllProductsByproductCategory(category);
-	}
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Product> getAllProduct() {
@@ -70,48 +64,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> getAllProduct(Integer pageNumber) {
 		
-		
 		PageRequest pageRequest= PageRequest.of(pageNumber-1, PAGE_ELEMENT_SIZE_ADMIN);
 		
 		return productDao.findAll(pageRequest);
 	}
 	
-	@Transactional(readOnly = true)
-	@Override
-	public Page<Product> getAllProductByCategory(Integer pageNumber,String category) {
-		
-		Pageable pageable=createPageRequest(pageNumber-1,PAGE_ELEMENT_SIZE_CUSTOMER);
-		
-		
-		
-		return productDao.findAllProductByproductCategory(category,pageable);
-	}
-	
-	
 	private Pageable createPageRequest(int pageNumber,int size) {
 	    return  PageRequest.of(pageNumber,size);
 	}
-
-
-	@Transactional(readOnly = true)
-	@Override
-	public Page<Product> getAllProductByBrandOrModel(Integer pageNumber, String searchTerm,String category) {
-		Pageable pageable=createPageRequest(pageNumber-1, PAGE_ELEMENT_SIZE_CUSTOMER);
-		return productDao.findAllProductByBrandOrModel(searchTerm, category, pageable);
-		
-		
-	}
-
-
-	@Transactional(readOnly = true)
-	@Override
-	public Page<Product> getAllProductByBrandOrModelOrCategory(Integer pageNumber, String searchTerm) {
-		
-		Pageable pageable=createPageRequest(pageNumber-1, PAGE_ELEMENT_SIZE_ADMIN);
-		
-		
-		return productDao.findAllProductByBrandOrModelorCategory(searchTerm, pageable);
-	}
-
-	
 }

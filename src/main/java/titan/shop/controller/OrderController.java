@@ -54,9 +54,11 @@ public class OrderController implements HandlerExceptionResolver{
 		CustomError error=new CustomError();
 	
 		
-		error.setMessage("Your request is not valid.Please Enter a valid request.");
+		error.setMessage("Có lỗi xảy ra, vui lòng kiểm tra lại!");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
+		
+		System.out.println(ex);
 		
 		return modelAndView;
 	}

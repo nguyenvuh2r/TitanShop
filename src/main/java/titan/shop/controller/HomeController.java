@@ -59,15 +59,7 @@ public class HomeController implements HandlerExceptionResolver{
 	
 	@RequestMapping("/")
 	public String homePage(Model model){
-		Page<Product> page = productService.getAllProduct(1);
-	  
-		List<Product> products=new ArrayList<>();
-		
-		for (Product product : page) {
-			products.add(product);
-		}
-		
-		model.addAttribute("products", products);
+
 		
 		return "home";
 	}
@@ -168,9 +160,11 @@ public class HomeController implements HandlerExceptionResolver{
 		CustomError error=new CustomError();
 	
 		
-		error.setMessage("Your request is not valid.Please Enter a valid request.");
+		error.setMessage("Có lỗi xảy ra, vui lòng kiểm tra lại!");
 		modelAndView.addObject("customError", error);
 		modelAndView.setViewName("error_page");
+		
+		System.out.println(ex);
 		
 		return modelAndView;
 	}

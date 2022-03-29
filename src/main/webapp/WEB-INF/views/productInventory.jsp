@@ -1,127 +1,164 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@include file="/WEB-INF/views/template/header.jsp" %>
+<%@ page pageEncoding="UTF-8" %>
+
+<%@include file="/WEB-INF/views/template/adminHeader.jsp" %>
+
 <c:url var="firstUrl" value="/admin/productManagement/1" />
 <c:url var="lastUrl" value="/admin/productManagement/${totalPages}" />
 <c:url var="prevUrl" value="/admin/productManagement/${currentPageNumber - 1}" />
 <c:url var="nextUrl" value="/admin/productManagement/${currentPageNumber + 1}" />
-	<div class="container-wrapper">
 
-		<div class="container">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Danh sách sản phẩm</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-           <div class="page-header">
-              <h1>Product Inventory Page:${pageContext.request.userPrincipal.name}</h1>
-              
-              <p class="lead">This is product inventory page</p>
-               <a  class="btn btn-primary" href="<spring:url value="/admin/product/addProduct"/>">Add New Product</a>
-                
-                <c:if test="${not empty search}">
-                     <a  class="btn btn-primary" href="<spring:url value="/admin/productManagement/1"/>">See All Product</a>
-                  
-                </c:if>
-           </div>
-         
-         
-         <div class="container">
-	     <div class=row>
-	        
-		         <div class="searchBox">
-		         
-		            <form class="form-inline" action="<c:url value="/admin/productManagement/search/1" />" method="post">
-		             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-					    <div class="form-group">
-					        <label  for="inputEmail">Search more product  :</label>
-					        <input type="text" name="searchTerm" class="form-control" style="width:300px"  id="inputEmail" placeholder="Enter Brand , model or  category name">
-					    </div>
-					    <input type="hidden"  value="category" name="search">
-					    <button type="submit" class="btn btn-primary">Search Product</button>
-                    </form>
-		               
-		         </div>
-	        
-	     </div>
-	
-	</div>
-         
-         <table class="table table-striped table-hover table-bordered">
-         
-           <thead>
-              <tr class="bg-success">
-                 <th>Photo Thumb</th>
-                 <th>Product Name</th>
-                 <th>Category</th>
-                 <th>Unit in Stock</th>
-                 <th>Price</th>
-                 <th>Operation</th>
-              </tr>
-           
-           </thead>
-          
-           <c:forEach items="${products}" var="product">
-               <tr>
-                      
-                     
-		              <td><img  style="width:50%"  alt="image" src="<c:url value="/resources/images/${product.productId}.png"/>" /></td>
-		              <td class="success">${product.productName}</td>
-		              <td class="info">${product.productCategory}</td>
-		              <td  class="warning">${product.unitInStock}</td>
-		              <td class="success">${product.productPrice} USD</td>
-		              <td class="info"> 
-		              <a href=" <spring:url value="/product/viewProduct/${product.productId}"/>"><span class="glyphicon glyphicon-info-sign"></span></a>
-		              <a href=" <spring:url value="/admin/product/deleteProduct/${product.productId}"/>"><span class="glyphicon glyphicon-remove"></span></a>
-		              <a href=" <spring:url value="/admin/product/updateProduct/${product.productId}"/>"><span class="glyphicon glyphicon-pencil"></span></a>
-		                
-		              </td>
-                     
-                      
-              </tr>  
-           </c:forEach>
-          
-           
-         </table>
-         
-        
-        <div class="Page navigation text-center">
-    <ul class="pagination">
-    
-     
-    
-    
-        <c:choose>
-            <c:when test="${currentPageNumber == 1}">
-                <li class="disabled"><a href="#">&lt;&lt;</a></li>
-                <li class="disabled"><a href="#">&lt;</a></li>
-            
-            
-            
-            </c:when>
-            <c:otherwise>
-                <li><a href="${firstUrl}">&lt;&lt;</a></li>
-                <li><a href="${prevUrl}">&lt;</a></li>
-            </c:otherwise>
-        </c:choose>
-        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
-            <c:url var="pageUrl" value="/admin/productManagement/${i}" />
-            <c:choose>
-                <c:when test="${i == currentPageNumber}">
-                    <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-        <c:choose>
-            <c:when test="${currentPageNumber == totalPages}">
-                <li class="disabled"><a href="#">&gt;</a></li>
-                <li class="disabled"><a href="#">&gt;&gt;</a></li>
-            </c:when>
-            <c:otherwise>
-                <li><a href="${nextUrl}">&gt;</a></li>
-                <li><a href="${lastUrl}">&gt;&gt;</a></li>
-            </c:otherwise>
-        </c:choose>
-    </ul>
-</div>
-       
-	<%@include file="/WEB-INF/views/template/footer.jsp" %>	
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <a class="btn btn-app bg-secondary" href="<spring:url value="/admin/product/addProduct"/>">
+                  <i class="far fa-plus-square"></i>
+                </a>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="mainTable" class="display table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Giá</th>
+                    <th>Hãng</th>
+                    <th>Thể loại</th>
+                    <th>Tồn kho</th>
+                    <th>Giảm giá (%)</th>
+                    <th><i class="fas fa-cogs"></i></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <c:forEach items="${products}" var="product">
+                  <tr>
+                  	<td>${product.productId}</td>
+                  	<td>${product.productName}</td>
+                  	<td style="width: 15%;"><img class="img-fluid img-thumbnail" alt="${product.productName}" src="<c:url value="/resources/images/products/${product.productId}.jpg"/>" /></td>
+                  	<td>${product.productPrice}</td>
+                  	<td>${product.productBrand.name}</td>
+                  	<td>${product.productCategories.name}</td>
+                  	<td>${product.unitInStock}</td>
+                  	<td>${product.discount}</td>
+                  	<td>
+                  	<div class="btn-group">
+                  	  <a class="btn btn-info btn-xs" href="<spring:url value="/product/viewProduct/${product.productId}"/>"><i class="fas fa-info-circle"></i></i></a>
+		              <a class="btn btn-info btn-xs" href="<spring:url value="/admin/product/updateProduct/${product.productId}"/>"><i class="fas fa-edit"></i></a>
+		              <a class="btn btn-info btn-xs" href="<spring:url value="/admin/product/deleteProduct/${product.productId}"/>"><i class="fas fa-trash-alt"></i></i></a>
+                  	</div>
+                  	</td>
+                  </tr>
+                  </c:forEach>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Giá</th>
+                    <th>Hãng</th>
+                    <th>Thể loại</th>
+                    <th>Tồn kho</th>
+                    <th>Giảm giá (%)</th>
+                    <th><i class="fas fa-cogs"></i></th>
+                  </tr>
+                  </tfoot>
+                </table>
+                <div class="row">
+                  <div class="col-sm-12 col-md-5">
+                  	<ul class="pagination pagination-sm float-left">
+                  		<c:choose>
+				            <c:when test="${currentPageNumber == 1}">
+				                <li class="disabled page-item"><a class="page-link" href="#">&lt;&lt;</a></li>
+				                <li class="disabled page-item"><a class="page-link" href="#">&lt;</a></li>
+				            </c:when>
+				            <c:otherwise>
+				                <li class="page-item"><a class="page-link" href="${firstUrl}">&lt;&lt;</a></li>
+				                <li class="page-item"><a class="page-link" href="${prevUrl}">&lt;</a></li>
+				            </c:otherwise>
+				        </c:choose>
+				        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+				            <c:url var="pageUrl" value="/admin/productManagement/${i}" />
+				            <c:choose>
+				                <c:when test="${i == currentPageNumber}">
+				                    <li class="page-item active"><a class="page-link" href="${pageUrl}"><c:out value="${i}" /></a></li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li class="page-item"><a class="page-link" href="${pageUrl}"><c:out value="${i}" /></a></li>
+				                </c:otherwise>
+				            </c:choose>
+				        </c:forEach>
+				        <c:choose>
+				            <c:when test="${currentPageNumber == totalPages}">
+				                <li class="disabled page-item"><a class="page-link" href="#">&gt;</a></li>
+				                <li class="disabled page-item"><a class="page-link" href="#">&gt;&gt;</a></li>
+				            </c:when>
+				            <c:otherwise>
+				                <li class="page-item"><a class="page-link" href="${nextUrl}">&gt;</a></li>
+				                <li class="page-item"><a class="page-link" href="${lastUrl}">&gt;&gt;</a></li>
+				            </c:otherwise>
+				        </c:choose>
+
+                  	</ul>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+<%@include file="/WEB-INF/views/template/adminFooter.jsp" %>
+  
+<!-- Page specific script -->
+<script>
+  $(function() {
+    $('#mainTable').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true
+    });
+  });
+</script>
+</body>
+</html>
